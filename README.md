@@ -38,40 +38,30 @@ ssh -i "/path/to/your/keypair.pem" ubuntu@your-elastic-ip-address
 
 ## Step 3: Install PostgreSQL
 
-### 3.1 Update System Packages
 ```bash
+# Update System Packages
 sudo apt update
-```
 
-### 3.2 Install PostgreSQL
-```bash
+# Install PostgreSQL
 sudo apt install postgresql postgresql-contrib -y
-```
 
-### 3.3 Verify Installation
-```bash
+# Verify Installation
 sudo systemctl status postgresql
 ```
 
 ## Step 4: Configure PostgreSQL
 
-### 4.1 Access PostgreSQL
 ```bash
+# Access PostgreSQL
 sudo -u postgres psql
-```
 
-### 4.2 Set Password for postgres User
-```sql
+# Set Password for postgres User
 ALTER USER postgres WITH PASSWORD 'postgres123';
-```
 
-### 4.3 Check PostgreSQL Version
-```sql
+# Check PostgreSQL Version
 SELECT version();
-```
 
-### 4.4 Exit PostgreSQL
-```sql
+# Exit PostgreSQL
 \q
 ```
 
@@ -170,5 +160,3 @@ sudo -u postgres psql -c "SHOW pgaudit.log;"
 ## Conclusion
 
 You now have a fully configured AWS EC2 instance running PostgreSQL with pgAudit extension. The database is accessible remotely and ready for auditing database activities. Remember to follow security best practices and regularly monitor your setup.
-
-For production environments, consider additional security measures such as VPC configuration, private subnets, and more restrictive security groups.
