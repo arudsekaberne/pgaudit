@@ -4,32 +4,15 @@ This guide walks you through creating an AWS EC2 instance with PostgreSQL and th
 
 ## Prerequisites
 
-- AWS Account with appropriate permissions
+- AWS Account
 - SSH client (Terminal, PuTTY, etc.)
 - Database client (DBeaver, pgAdmin, etc.) for testing
 
 ## Step 1: Create AWS EC2 Instance
-
-### 1.1 Launch EC2 Instance
-1. Log into AWS Console and navigate to EC2 Dashboard
-2. Click "Launch Instance"
-3. Configure the following settings:
-   - **Name**: Give your instance a descriptive name (e.g., "PostgreSQL-Server")
-   - **AMI**: Select Ubuntu Server (latest LTS version recommended)
-   - **Key Pair**: Create a new key pair
-     - Key pair name: `postgre-poc-keypair` (or your preferred name)
-     - Key pair type: RSA
-     - Private key file format: .pem
-
-### 1.2 Configure Security Group
-1. Create a new security group or modify the default
-2. Add the following inbound rules:
-   - **PostgreSQL**: Port 5432, Source: Anywhere-IPv4 (for external access)
-
-### 1.3 Allocate Elastic IP
-1. After instance launch, go to EC2 Dashboard → Elastic IPs
-2. Select the allocated IP → Actions → Associate Elastic IP address
-3. Choose your EC2 instance and associate
+1. Launch EC2 Instance with Ubuntu Server (default configuration)
+2. Create a new .pem key pair during instance creation
+3. Add inbound rule: PostgreSQL (Port 5432, Source: Anywhere-IPv4)
+4. Allocate a dedicated Elastic IP address
 
 ## Step 2: Connect to EC2 Instance
 ```bash
@@ -105,23 +88,20 @@ sudo systemctl status postgresql
 
 ### 6.1 Search and Install pgAudit Package
 ```bash
-# For PostgreSQL 16 (adjust version number as needed)
+
+# Search for selective pgAudit Package (adjust version number as needed)
 apt search postgresql-16-pgaudit
+
+# Install selective pgAudit Package
 sudo apt install -y postgresql-16-pgaudit
-```
 
-### 6.2 Verify pgAudit Availability
-```bash
+# Verify pgAudit Availability
 sudo -u postgres psql -c "SELECT * FROM pg_available_extensions WHERE name = 'pgaudit';"
-```
 
-### 6.3 Create pgAudit Extension
-```bash
+# Create pgAudit Extension
 sudo -u postgres psql -c "CREATE EXTENSION pgaudit;"
-```
 
-### 6.4 Verify Extension Installation
-```bash
+# Verify Extension Installation
 sudo -u postgres psql -c "SELECT * FROM pg_extension WHERE extname = 'pgaudit';"
 ```
 
@@ -141,19 +121,15 @@ Use a database client like DBeaver with the following connection details:
 - **Password**: postgres123
 
 ## Step 8: Configure pgAudit (Optional)
-
-### 8.1 Basic pgAudit Configuration
+ 
 ```bash
+# Basic pgAudit Configuration
 sudo vi /etc/postgresql/16/main/postgresql.conf
-```
 
-### 8.2 Restart PostgreSQL
-```bash
+# Restart PostgreSQL
 sudo systemctl restart postgresql
-```
 
-### 8.3 Verify pgAudit Settings
-```bash
+# Verify pgAudit Settings
 sudo -u postgres psql -c "SHOW pgaudit.log;"
 ```
 
