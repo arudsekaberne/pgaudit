@@ -136,3 +136,15 @@ sudo -u postgres psql -c "SHOW pgaudit.log;"
 ## Conclusion
 
 You now have a fully configured AWS EC2 instance running PostgreSQL with pgAudit extension. The database is accessible remotely and ready for auditing database activities. Remember to follow security best practices and regularly monitor your setup.
+
+## References
+
+### Official Documentation
+- [PgAudit Official Documentation](https://github.com/pgaudit/pgaudit?tab=readme-ov-file#pgaudit--open-source-postgresql-audit-logging)
+- [PostgreSQL Native Logging Official Documentation](https://www.postgresql.org/docs/current/runtime-config-logging.html#RUNTIME-CONFIG-LOGGING)
+- [PostgreSQL Log Schema](https://www.postgresql.org/docs/current/runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-JSONLOG)
+- [PgAudit Log Format](https://github.com/pgaudit/pgaudit?tab=readme-ov-file#format)
+  
+### Video Tutorials
+- [PostgreSQL on Amazon EC2 Instance](https://www.youtube.com/watch?v=iHX-jtKIVNA)
+- [Assign Elastic IP to AWS EC2 instance](https://www.youtube.com/watch?v=d3s385C0QCw&lc=UgwWvj2U40y3l_DYGnB4AaABAg)
